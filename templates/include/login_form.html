@@ -1,0 +1,34 @@
+<div class="background-form">
+    <div class="uk-container">
+        <div class="row">
+            <div class="uk-width-1-1 uk-form-container">
+                <div class="uk-form">
+
+                    <h1 class="login-user__title"> <span uk-icon="gitter"></span> Система обліку ключів</h1>
+
+                    {% if errors %}
+                        <div class="uk-alert-danger" uk-alert>
+                            <a href class="uk-alert-close" uk-close></a>
+                            <p>{{errors}}</p>
+                        </div>
+                    {% endif %}
+
+                    <form method="post" action="{{ url_for('login') }}">
+                        <div class="row">
+                            <div class="uk-width-1-1 uk-margin-top">
+                                <input type="text" id="username" name="username" class='uk-input'  placeholder='Ім`я користувача' required>
+                            </div>
+                            <div class="uk-width-1-1 uk-margin-top">
+                                <input type="password" id="password" name="password" class='uk-input'  placeholder='Пароль' required>
+                            </div>
+                            <div class="uk-width-1-1 uk-margin-top uk-text-center">
+                                <button type="submit" value="Увійти" class="uk-button uk-button-default uk-button-primary uk-button-bold">Увійти</button>
+                            </div>
+                        </div>
+                    </form>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

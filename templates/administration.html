@@ -1,0 +1,53 @@
+{% include 'include/.header.html' %}
+
+{% if current_user.is_authenticated %}
+
+<!--
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            <ul class="flashes">
+                {% for message in messages %}
+                    <li>{{ message }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    {% endwith %}
+-->
+    <!---->
+    {% include 'include/header_box.html' %}
+    {% include 'include/left_menu.html' %}
+
+{% if grant_admin == 0 %}
+    {% include 'include/no_grant_info.html' %}
+{% else %}
+    <div class="container-info">
+        <div class="box_index_title">
+            <div class="uk-grid">
+                <div class="uk-width-1-2 uk-box-flex">
+                    <div class="">
+                        <h1 class="">Адміністрування</h1>
+                    </div>
+                </div>
+                <div class="uk-width-1-2">
+                    <div class="uk-text-right">
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endif %}
+
+<script>
+    var active = '{{active}}';
+</script>
+
+
+{% else %}
+
+    {% include 'include/login_form.html' %}
+
+{% endif %}
+
+{% include 'include/.footer.html' %}

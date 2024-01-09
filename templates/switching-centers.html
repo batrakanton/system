@@ -1,0 +1,140 @@
+{% include 'include/.header.html' %}
+
+{% if current_user.is_authenticated %}
+    {% include 'include/header_box.html' %}
+    {% include 'include/left_menu.html' %}
+
+
+{% if grant_user == 0 %}
+    {% include 'include/no_grant_info.html' %}
+{% else %}
+    <div class="container-info">
+        <div class="box_index_title">
+            <div class="uk-grid">
+                <div class="uk-width-1-4 uk-box-flex">
+                    <div class="">
+                        <h1 class="s">Комутаційни центри</h1>
+                    </div>
+                </div>
+                <div class="uk-width-1-2">
+                    
+                </div>
+                <div class="uk-width-1-4">
+                    <div class="uk-text-right">
+                        <a class="uk-button uk-button-add uk-button-small" href="#modal-add-centers" uk-toggle="" uk-tooltip="title: Додати" title="" aria-expanded="false">
+                            <img src="/static/images/plus.svg">
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="">
+            <form action="/switching-centers" method="get">
+                <input class="uk-input search_input_filters" type="text" name="search" placeholder="Пошук" value="{{search}}">
+            </form>
+        </div>
+        <div class="box_index">
+            <table id="myTable" class='uk-table uk-table-divider uk-table-striped uk-table-hover uk-table-small uk-table-1200px'>
+                <thead>
+                    <tr>
+                        <th class='uk-text-center' width="100px">
+                            ID
+                        </th>
+                        <th class='uk-text-left' width="">
+                            Назва
+                        </th>
+                        <th class='uk-text-left' width="">
+                            Приміщення
+                        </th>
+                        <th width="100px">
+    
+                        </th>
+                    </tr>
+                </thead>
+                <tbody id="list-centers">
+                    {% for centers_datas in centers_data %}
+
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        <ul class="uk-pagination uk-flex-center" uk-margin>
+            <li><a href="#">
+                <span uk-pagination-previous></span></a>
+            </li>
+            <li id='pagination-centers' pages='1' class="uk-active">
+                <a href="#">1</a>
+            </li>
+            <li id='pagination-centers' pages='2'>
+                <a href="#">2</a>
+            </li>
+            <li id='pagination-centers' pages='3'>
+                <a href="#">3</a>
+            </li>
+            <li><a href="#">
+                <span uk-pagination-next></span></a>
+            </li>
+        </ul>
+
+    </div>
+
+<div id="modal-center" class="uk-flex-top" uk-modal>
+    <div class="uk-modal-dialog uk-modal-body uk-margin-auto-vertical">
+        <button class="uk-modal-close-default" type="button" uk-close></button>
+        <h2 class="uk-modal-title" id="ModalH1Name"></h2>
+        <input type="hidden" id="ModalInputId"/>
+        <div uk-grid>
+            <div class="uk-width-1-1">
+                <div class="uk-form-controls">
+                    <label class="uk-form-label">Комутаційний центр</label>
+                    <input type="text" class="uk-input" name="" id="ModalInputName" value="" placeholder="Введіть назву"/>
+                </div>
+            </div>
+            <div class="uk-width-1-1">
+                <div class="uk-form-controls">
+                    <label class="uk-form-label">Приміщення</label>
+                    <input type="text" class="uk-input" name="" id="ModalInputRoom" value="" placeholder="Введіть номер приміщення"/>
+                </div>
+            </div>
+        </div>
+        <p class="uk-text-right uk-margin-medium-top">
+            <button class="uk-button uk-button-default uk-modal-close uk-button-bold uk-button-small" type="button">Скасувати</button>
+            <button id='SaveDataModal' class="uk-button uk-button-default uk-button-primary uk-button-bold uk-button-small" type="submit">Зберегти</button>
+        </p>
+    </div>
+</div>
+
+<div id="modal-add-centers" class="uk-flex-top" uk-modal>
+    <div class="uk-modal-dialog uk-modal-body uk-margin-auto-vertical">
+        <button class="uk-modal-close-default" type="button" uk-close></button>
+        <h2 class="uk-modal-title" id="AddModalH1Name">Додати комутаційний центр </h2>
+        <div uk-grid>
+            <div class="uk-width-1-1">
+                <div class="uk-form-controls">
+                    <label class="uk-form-label">Комутаційний центр</label>
+                    <input type="text" class="uk-input" name="" id="AddModalInputName" value="" placeholder="Введіть назву"/>
+                </div>
+            </div>
+            <div class="uk-width-1-1">
+                <div class="uk-form-controls">
+                    <label class="uk-form-label">Приміщення</label>
+                    <input type="text" class="uk-input" name="" id="AddModalInputRoom" value="" placeholder="Введіть номер приміщення"/>
+                </div>
+            </div>
+        </div>
+        <p class="uk-text-right uk-margin-medium-top">
+            <button class="uk-button uk-button-default uk-modal-close uk-button-bold uk-button-small" type="button">Скасувати</button>
+            <button id='AddDataModal' class="uk-button uk-button-default uk-button-primary uk-button-bold uk-button-small" type="submit">Додати</button>
+        </p>
+    </div>
+</div>
+{% endif %}
+
+{% else %}
+
+    {% include 'include/login_form.html' %}
+
+{% endif %}
+
+{% include 'include/.footer.html' %}

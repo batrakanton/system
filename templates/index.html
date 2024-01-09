@@ -1,0 +1,173 @@
+{% include 'include/.header.html' %}
+
+{% if current_user.is_authenticated %}
+
+<!--
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            <ul class="flashes">
+                {% for message in messages %}
+                    <li>{{ message }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    {% endwith %}
+-->
+    <!---->
+    {% include 'include/header_box.html' %}
+    {% include 'include/left_menu.html' %}
+
+{% if grant_user == 0 %}
+    {% include 'include/no_grant_info.html' %}
+{% else %}
+    <div class="container-info">
+        <div class="box_index_title">
+            <div class="uk-grid">
+                <div class="uk-width-1-2 uk-box-flex">
+                    <div class="">
+                        <h1 class="">Журнал заявок</h1>
+                    </div>
+                </div>
+                <div class="uk-width-1-2">
+                    <div class="uk-text-right">
+                        <a id='OpenModalZayavka' class="uk-button uk-button-add uk-button-small" href="#modal-zayavka" uk-toggle="" uk-tooltip="title: Додати заявку" title="" aria-expanded="false">
+                            <img src="{{ url_for('static', filename='images/plus.svg') }}">
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="">
+            <div class="menu_container">
+                <ul class="uk-subnav" uk-margin=""> 
+                    {% if active == None %} 
+                        <li class="uk-active uk-first-column">
+                    {% else %}
+                        <li class="">
+                    {% endif %}
+                        <a href="/">Активні
+                        </a>
+                    </li>
+                    {% if active == '-1' %} 
+                        <li class="uk-active"> 
+                    {% else %}
+                        <li class="">
+                    {% endif %}
+                        <a href="/?active=-1"> Архів
+                        </a>
+                    </li>
+                                
+                </ul>
+            </div>
+
+            <div class="uk-grid">
+                <div class="uk-width-1-1">
+                    <div class="box_index">
+                    
+                        <table id="myTable" class='uk-table uk-table-divider uk-table-striped uk-table-hover uk-table-small uk-table-1200px'>
+                            <thead>
+                                <tr>
+                                    <th class='uk-text-center' width="100px">
+                                        ID
+                                    </th>
+                                    <th class='' width="">
+                                        Час видачі
+                                    </th>
+                                    <th class='' width="">
+                                        Комутаційний центр
+                                    </th>
+                                    <th class='' width="">
+                                        Отримав ключ
+                                    </th>
+                                    <th class='' width="">
+                                        Час повернення
+                                    </th>
+                                    <th class='' width="100px">
+                                        
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody id="list-journal"></tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="uk-width-1-1">
+                    <div class="box_index">
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+<!-- This is the modal -->
+<div id="modal-zayavka" uk-modal>
+    <div class="uk-modal-dialog uk-modal-body">
+        <button class="uk-modal-close-default" type="button" uk-close></button>
+        <h2 class="uk-modal-title">Додати заявку</h2>
+        <div uk-grid>
+            <div class="uk-width-1-1">
+                <div class="uk-form-controls">
+                    <label class="uk-form-label">Комутаційний центр</label>
+                    <select name="" class="uk-select" id="JuornalAddCenters">
+                        <option value="">Обрати</option>
+                        <optgroup label="Комутаційни центри" id="JuornalListCenters">
+                            <option value=""></option>
+                        </optgroup>
+                    </select>
+                </div>
+            </div>
+            <div class="uk-width-1-1">
+                <label class="uk-form-label">Особа яка отримала ключ</label>
+                <select name="" class="uk-select" id="JuornalAddPersonal">
+                    <option value="">Обрати</option>
+                    <optgroup label="Персонал" id="JuornalListPersonal">
+                        <option value=""></option>
+                    </optgroup>
+                </select>
+            </div>
+            <div class="uk-width-1-1">
+                <label class="uk-form-label">Час видачі</label>
+                <input id="JuornalAddDatetime" type="datetime-local" class="uk-input" value="">
+            </div>
+        </div>
+        <p class="uk-text-right">
+            <button class="uk-button uk-button-default uk-modal-close uk-button-bold uk-button-small" type="button">Скасувати</button>
+            <button id='AddDataJournal' class="uk-button uk-button-default uk-button-primary uk-button-bold uk-button-small" type="submit">Зберегти</button>
+        </p>
+    </div>
+</div>
+
+<div id="modal-edit-journal" class="uk-flex-top" uk-modal>
+    <div class="uk-modal-dialog uk-modal-body uk-margin-auto-vertical">
+        <button class="uk-modal-close-default" type="button" uk-close></button>
+        <h2 class="uk-modal-title">Заявка №<span id="JournalModalH1Name">12</span></h2>
+        <input type="hidden" id="JournalModalInputId"/>
+        <div uk-grid>
+            <div class="uk-width-1-1">
+                <div class="uk-form-controls">
+                    <label class="uk-form-label">Час повернення</label>
+                    <input type="datetime-local" class="uk-input" name="" id="JournalModalInputDateEnd" value=""/>
+                </div>
+                <p class="uk-text-mini">Заявку, яку ви закриєте, автоматично буде переміщено в розділ "Архів"</p>
+            </div>
+        </div>
+        <p class="uk-text-right uk-margin-medium-top">
+            <button class="uk-button uk-button-default uk-modal-close uk-button-bold uk-button-small" type="button">Скасувати</button>
+            <button id='JournalEditModal' class="uk-button uk-button-default uk-button-primary uk-button-bold uk-button-small" type="submit">Закрити заявку</button>
+        </p>
+    </div>
+</div>
+{% endif %}
+
+<script>
+    var active = '{{active}}';
+</script>
+
+
+{% else %}
+
+    {% include 'include/login_form.html' %}
+
+{% endif %}
+
+{% include 'include/.footer.html' %}

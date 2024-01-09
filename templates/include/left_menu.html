@@ -1,0 +1,33 @@
+<div class="left_menu">
+    <ul class="uk-list list_menu">
+        {% if grant_user == 1 %}
+        <li>
+            <a href="/">
+                <span uk-icon="home"></span> <span>Головна</span>
+            </a>
+        </li>
+        {% endif %}
+
+        {% if grant_user == 1 %}
+        <li>
+            <a href="/switching-centers">
+                <span uk-icon="database"></span> <span>Комутаційни центри</span>
+            </a>
+        </li>
+        {% endif %}
+
+        {% if grant_admin == 1 %}
+        <li>
+            <a href="/administration">
+                <span uk-icon="nut"></span> <span>Адміністрування</span>
+            </a>
+        </li>
+        {% endif %}
+
+        <li>
+            <a href="/logout">
+                <span uk-icon="sign-out"></span> <span>Вихід</span>
+            </a>
+        </li>
+    </ul>
+</div>

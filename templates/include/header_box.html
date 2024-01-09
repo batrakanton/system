@@ -1,0 +1,24 @@
+<div class="header_box">
+    <div class="title">
+        <h1>
+            <img class='logo_header' src="{{ url_for('static', filename='images/6676583.png') }}"/> 
+            Журнал обліку ключів комутаційних центрів комп’ютерної мережі ІАСУ ВП ХАЕС
+        </h1>
+    </div>
+    <div class="uk-inline">
+        {% if tab_no %}
+            <div class="username">
+                <a type="button">
+                    <span uk-icon="user"></span> {{familia}} {{imya}} {{otchestvo}}  
+                </a>
+            </div>
+            <div uk-dropdown="mode: click; flip: false">
+                <ul class="uk-nav uk-dropdown-nav">
+                    <li>
+                        <a href="/logout"><span uk-icon="sign-out"></span> Вихід</a>
+                    </li>
+                </ul>
+            </div>
+        {% endif %}
+    </div>
+</div>

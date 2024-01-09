@@ -125,7 +125,7 @@ def login():
     html_content = render_template('index.html', errors=errors)
     minified_html = minify(html_content, remove_comments=True, remove_empty_space=True)
     return minified_html
-
+ 
 # Сторінка - Комутаційни центри
 @app.route('/switching-centers', methods=['GET'])
 def switchingcenters():

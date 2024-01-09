@@ -1,4 +1,4 @@
- const number_lines = 10;
+ const number_lines = 1000;
 
  // Удалить комутационный центр
  function delete_centers(data) {
@@ -250,13 +250,17 @@ $(document).on('click', 'button#AddDataModal', function(){
 // Відкриття модального вікна для додавання заявки
 $(document).on('click', 'a#OpenModalZayavka', function(){
     // Список Комутаційних центрів
+    var page_number = ''
+    if(page_number == null || page_number == '' || page_number == ' '){
+        page_number = '1';
+    } else {}
     $.ajax({
         url: "/api/v1/switching-centers",
         type: "GET",
         data: { },
         beforeSend: function() {
             // Покажите индикатор загрузки или текст "Загрузка..."
-            $("#JuornalListCenters").html("Loading...");
+            $("#JuornalListCenters").html("<option>Loading...</option>");
         },
         success: function(response) {
             var centers = response;

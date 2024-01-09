@@ -54,13 +54,17 @@ def page_not_found(error):
 # Сторінка - Головна
 @app.route('/', methods=['GET', 'POST'])
 def index():
+    
     active = request.args.get('active')
+
     if current_user.is_authenticated:
         message = ''
         title = f'Головна - {name}'
         PersonInfo = PersonalInfo(current_user.id)
+        print(PersonInfo['username'])
 
         grant = grants(PersonInfo['username']);
+        
 
         user_exists = any(item['granted_role'] == var_grant_user for item in grant) 
         grant_user = 1 if user_exists else 0
@@ -108,6 +112,7 @@ def login():
         if request_user:
                 
                 user = User(PersonalAuthentication(username)['tab_no'])
+                print(username)
                 login_user(user)
                 
                 print('Підключення користувача к БД успішне')
@@ -159,7 +164,6 @@ def switchingcenters():
         minified_html = minify(html_content, remove_comments=True, remove_empty_space=True)
         return minified_html
 
-
 # Сторінка - Адміністрування
 @app.route('/administration', methods=['GET'])
 def administration():
@@ -198,9 +202,19 @@ def administration():
 # Комутаційни центри - Список
 @app.route('/api/v1/switching-centers', methods=['GET'])
 def switchingcentersID():
-    search = clean_data_form(request.args.get('search'))
-    page_number = int(clean_data_form(request.args.get('page_number')))  # Convert to integer
-    number_lines = int(clean_data_form(request.args.get('number_lines')))  # Convert to integer
+    if request.args.get('search'):
+        search = clean_data_form(request.args.get('search'))
+    else:
+        search = ''
+    if request.args.get('page_number'):
+        page_number = int(clean_data_form(request.args.get('page_number')))  # Convert to integer
+    else:
+        page_number = int(1)
+    if request.args.get('number_lines'):
+        number_lines = int(clean_data_form(request.args.get('number_lines')))  # Convert to integer
+    else:
+        number_lines = int(50)
+
     start_row = (page_number - 1) * number_lines + 1
     end_row = start_row + number_lines - 1
     #print(start_row, end_row)

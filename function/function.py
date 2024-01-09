@@ -72,7 +72,7 @@ def PersonalInfo(tab_no):
                                         kbs.personal s
                                         INNER JOIN base_obj.user_workplace b ON b.tab_no = s.tab_no
                                     where
-                                        s.tab_no = '13042'
+                                        s.tab_no = '{tab_no}'
                                         AND rownum <= 1
                                     """)
         for row_Personal in Personal.fetchall():
@@ -256,12 +256,12 @@ def mass_grant_and_revoke(doc_no, priznak, doc_date, dept_short, author, actions
         return None
 
 
-doc_no = int(92)
+doc_no = int(126)
 priznak = int(1)
-doc_date = "06.01.2024"
-dept_short = 'ГТЦ'
+doc_date = "08.01.2024"
+dept_short = 'СВНіПБ'
 author = 'Батрак А. О.'
 #actions = 'REVOKE'
 actions = 'GRANT'
-role = 'URP_EQU'
+role = 'FX_ADMIN'
 #mass_grant_and_revoke(doc_no, priznak, doc_date, dept_short, author, actions, role)
